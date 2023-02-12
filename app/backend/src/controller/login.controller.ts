@@ -23,4 +23,18 @@ export default class Login {
       return res.status(400).send(error);
     }
   }
+
+  static async validateUsers(req: Request, res: Response): Promise<Response> {
+    try {
+      const services = new LoginServices();
+      const token = req.header('authorization');
+      if (token) {
+        const result = await services.validateUsers(token);
+        return res.status(result.statusCode).send({ role: result.message });
+      }
+      return res.status(400).send({ message: 'Token not found' });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  }
 }
