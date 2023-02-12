@@ -17,8 +17,12 @@ export default class Login {
     const user = await this.userModel.findOne({ where: { email: data.email } });
     let bcryptCompare = false;
 
-    if (!user) {
-      return { type: 'teste', statusCode: 400, message: 'Não existe usuário com este email' };
+    if (!data.email) {
+      return { type: 'email_not_found', statusCode: 400, message: 'All fields must be filled' };
+    }
+
+    if (!data.password) {
+      return { type: 'password_not_found', statusCode: 400, message: 'All fields must be filled' };
     }
 
     if (user) {
@@ -30,6 +34,6 @@ export default class Login {
       return { type: null, statusCode: 200, message: token };
     }
 
-    return { type: 'teste', statusCode: 400, message: 'senha inválida' };
+    return { type: 'not_found', statusCode: 401, message: 'Incorrect email or password' };
   }
 }
