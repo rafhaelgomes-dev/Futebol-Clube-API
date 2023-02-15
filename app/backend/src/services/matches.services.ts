@@ -60,4 +60,15 @@ export default class Matches {
     );
     return { type: null, statusCode: 200, message: updateMatches };
   }
+
+  public async editMatchesInProgress(data: {
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+    id: number }): Promise<ResultTypes> {
+    const [updateMatches] = await this._model.update(
+      { homeTeamGoals: data.homeTeamGoals, awayTeamGoals: data.awayTeamGoals },
+      { where: { id: data.id, inProgress: true } },
+    );
+    return { type: null, statusCode: 200, message: updateMatches };
+  }
 }

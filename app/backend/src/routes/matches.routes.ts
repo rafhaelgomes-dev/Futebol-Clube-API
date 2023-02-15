@@ -13,4 +13,6 @@ router.post('/', middlewareValidate.validateToken, controller.saveMatches);
 
 router.patch('/:id/finish', controller.editMatches);
 
+router.patch('/:id', controller.editMatchesInProgress);
+
 export default router;

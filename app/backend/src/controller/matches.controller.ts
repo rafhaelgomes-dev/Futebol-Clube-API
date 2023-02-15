@@ -41,4 +41,19 @@ export default class Matches {
       return res.status(400).send(error);
     }
   };
+
+  public editMatchesInProgress = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { id } = req.params;
+      const { body } = req;
+      body.id = Number(id);
+      const result = await this._serviceTeams.editMatchesInProgress(body);
+      if (result.type) {
+        return res.status(result.statusCode).send({ message: result.message });
+      }
+      return res.status(result.statusCode).send({ message: 'Edit' });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  };
 }
