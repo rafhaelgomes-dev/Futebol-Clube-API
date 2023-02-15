@@ -28,4 +28,17 @@ export default class Matches {
       return res.status(400).send(error);
     }
   };
+
+  public editMatches = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { id } = req.params;
+      const result = await this._serviceTeams.editMatches(Number(id));
+      if (result.type) {
+        return res.status(result.statusCode).send({ message: result.message });
+      }
+      return res.status(result.statusCode).send({ message: 'Finished' });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  };
 }

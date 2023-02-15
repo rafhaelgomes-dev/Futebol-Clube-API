@@ -52,4 +52,12 @@ export default class Matches {
     const result = await this._model.create({ ...data, inProgress: true });
     return { type: null, statusCode: 201, message: result };
   }
+
+  public async editMatches(data: number): Promise<ResultTypes> {
+    const [updateMatches] = await this._model.update(
+      { inProgress: false },
+      { where: { id: data, inProgress: true } },
+    );
+    return { type: null, statusCode: 200, message: updateMatches };
+  }
 }
