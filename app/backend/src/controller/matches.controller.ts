@@ -16,4 +16,16 @@ export default class Matches {
       return res.status(400).send(error);
     }
   };
+
+  public saveMatches = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const result = await this._serviceTeams.saveMatches(req.body);
+      if (result.type) {
+        return res.status(result.statusCode).send({ message: result.message });
+      }
+      return res.status(result.statusCode).send(result.message);
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  };
 }
