@@ -1,6 +1,6 @@
 import MatchesModel from '../database/models/MatchesModel';
 import TeamModel from '../database/models/TeamModel';
-import IMatches from '../interfaces/IMatches';
+import { IMatches } from '../interfaces/IMatches';
 import { ResultTypes } from '../types/ResultTypes';
 
 export default class Matches {
