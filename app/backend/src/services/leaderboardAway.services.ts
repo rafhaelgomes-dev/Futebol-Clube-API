@@ -29,7 +29,7 @@ type res = {
   };
 };
 
-export default class Leaderboard {
+export default class Leaderboardaway {
   static calculatePointVitoriaEmpates(time: Iteams, matches: IMatchesTime[]) {
     let point = 0;
     let vitoria = 0;
@@ -37,16 +37,16 @@ export default class Leaderboard {
 
     matches.forEach((partidas: IMatchesTime) => {
       if (
-        partidas.homeTeam.teamName === time.teamName
-        && partidas.homeTeamGoals >= partidas.awayTeamGoals
+        partidas.awayTeam.teamName === time.teamName
+        && partidas.homeTeamGoals <= partidas.awayTeamGoals
       ) {
-        point += partidas.homeTeamGoals > partidas.awayTeamGoals ? 3 : 1;
-        vitoria += partidas.homeTeamGoals > partidas.awayTeamGoals ? 1 : 0;
+        point += partidas.homeTeamGoals < partidas.awayTeamGoals ? 3 : 1;
+        vitoria += partidas.homeTeamGoals < partidas.awayTeamGoals ? 1 : 0;
         empates += partidas.homeTeamGoals === partidas.awayTeamGoals ? 1 : 0;
       }
     });
 
-    const calculateDerrotasGolsJogos = Leaderboard.calculateDerrotasGols(time, matches);
+    const calculateDerrotasGolsJogos = Leaderboardaway.calculateDerrotasGols(time, matches);
 
     return { point, vitoria, empates, calculateDerrotasGolsJogos };
   }
@@ -58,15 +58,15 @@ export default class Leaderboard {
     let jogos = 0;
 
     matches.forEach((partidas: IMatchesTime) => {
-      if (partidas.homeTeam.teamName === time.teamName) {
+      if (partidas.awayTeam.teamName === time.teamName) {
         jogos += 1;
-        golsMarcados += partidas.homeTeamGoals;
-        golsSofridos += partidas.awayTeamGoals;
+        golsSofridos += partidas.homeTeamGoals;
+        golsMarcados += partidas.awayTeamGoals;
       }
 
       if (
-        partidas.homeTeam.teamName === time.teamName
-        && partidas.homeTeamGoals < partidas.awayTeamGoals
+        partidas.awayTeam.teamName === time.teamName
+        && partidas.homeTeamGoals > partidas.awayTeamGoals
       ) {
         derrotas += 1;
       }
@@ -100,7 +100,7 @@ export default class Leaderboard {
     return obj;
   }
 
-  static async leaderboardHome() {
+  static async leaderboardAwayFunc() {
     const serviceTeam = new Teams();
 
     const result = await serviceTeam.getAllTeams();
@@ -114,14 +114,14 @@ export default class Leaderboard {
 
     let obj: classificacoes[] = [];
     result.forEach((time) => {
-      const res = Leaderboard.calculatePointVitoriaEmpates(time, matches);
+      const res = Leaderboardaway.calculatePointVitoriaEmpates(time, matches);
       const eff = (res.point / (res.calculateDerrotasGolsJogos.jogos * 3)) * 100;
       obj = [
         ...obj,
-        Leaderboard.createObj(res, eff, time),
+        Leaderboardaway.createObj(res, eff, time),
       ];
     });
 
-    return Leaderboard.sort(obj);
+    return Leaderboardaway.sort(obj);
   }
 }
