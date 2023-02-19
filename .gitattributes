@@ -1,1 +1,1 @@
-app/frontend/* linguist-vendored
+*.ts linguist-detectable=true
