@@ -1,2 +1,3 @@
+app/frontend/* linguist-vendored
 /*.js linguist-vendored
 /*.jsx linguist-vendored
