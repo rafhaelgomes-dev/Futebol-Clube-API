@@ -1,2 +1,1 @@
-* linguist-vendored
-*.jsx linguist-vendored=true
+app/frontend/* linguist-vendored
