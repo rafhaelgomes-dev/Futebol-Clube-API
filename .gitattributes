@@ -1,1 +1,2 @@
-*.TypeScript linguist-detectable=true
+/*.js linguist-vendored
+/*.jsx linguist-vendored
