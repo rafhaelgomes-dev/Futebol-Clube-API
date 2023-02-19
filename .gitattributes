@@ -1,2 +1,2 @@
 * linguist-vendored
-*.jsx linguist-vendored=false
+*.jsx linguist-vendored=true
